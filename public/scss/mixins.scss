@@ -1,0 +1,72 @@
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+       -moz-border-radius: $radius;
+            border-radius: $radius;
+  }
+  
+  @mixin box-shadow($x: 0, $y: 2px, $blur: 4px, $color: rgba(0, 0, 0, 0.1)) {
+    -webkit-box-shadow: $x $y $blur $color;
+       -moz-box-shadow: $x $y $blur $color;
+            box-shadow: $x $y $blur $color;
+  }
+  
+  @mixin flex-center($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+  }
+  
+  @mixin transition($property: all, $duration: 0.3s, $timing-function: ease) {
+    transition: $property $duration $timing-function;
+  }
+  
+  @mixin responsive($max-width: 1200px) {
+    @media (max-width: $max-width) {
+      @content;
+    }
+  }
+  
+  @mixin font($size: 1rem, $weight: 400, $line-height: 1.5) {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $line-height;
+  }
+  
+  @mixin clearfix {
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+
+  @mixin link-hover-animation($text-color: #333, $underline-color: #2a9d8f, $duration: 0.3s, $ease: ease) {
+    position: relative;
+    text-decoration: none;
+    color: $text-color;
+    transition: color $duration $ease;
+  
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $underline-color;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform $duration $ease;
+    }
+  
+    &:hover {
+      color: $underline-color;
+  
+      &::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+    }
+  }
+  
