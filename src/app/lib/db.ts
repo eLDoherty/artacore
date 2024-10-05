@@ -4,7 +4,7 @@ const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'artacode',
+  database: 'artacore',
 });
 
 export async function insert(table: string, data: Record<string, any>) {

@@ -1,0 +1,78 @@
+@import '../../../../public/scss/index.scss';
+
+.arta-sidebar {
+    min-width: 250px;
+    background-color: $primary-color;
+    color: $white;
+    padding: 1.5rem;
+    @include border-radius(10px);
+    @include box-shadow(0, 4px, 10px, rgba(0, 0, 0, 0.1));
+
+    h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .menu-hasChild {
+      display: flex;
+    }
+
+    nav ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+            margin-bottom: 10px;
+
+            a {
+                color: $white;
+                text-decoration: none;
+                padding: 10px 15px;
+                display: block;
+                @include border-radius(5px);
+                @include transition(background-color);
+
+                &:hover {
+                    background-color: $hover-bg-color;
+                    color: $primary-color;
+                }
+            }
+
+            .toggle-button {
+                background: none;
+                border: none;
+                color: $white;
+                padding: 10px 15px;
+                cursor: pointer;
+                text-align: left;
+                width: 100%;
+                @include border-radius(5px);
+                @include transition(background-color);
+
+                &:hover {
+                    background-color: $hover-bg-color;
+                    color: $primary-color;
+                }
+            }
+
+            .child-menu {
+                list-style: none;
+                padding-left: 20px;
+                margin: 0;
+
+                li {
+                    margin-bottom: 5px;
+
+                    a {
+                        font-size: 0.9rem;
+                        color: $white;
+
+                        &:hover {
+                            color: $primary-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,36 +1,74 @@
 @import '../../../public/scss/index.scss';
 
-.artaheader {
-  background-color: $primary-color;
-  padding: 1.5rem 0;
-  h1 {
-    text-align: center;
-    color: $white;
-    margin-bottom: 1.5rem;
-  }
-  .arta-wrapper {
-    display: flex;
-    justify-content: space-between;
-
-    ul {
-      padding: 0;
+.artacore {
+  .artaheader {
+    background-color: $header-bg-color;
+    padding: 20px 0;
+    @include box-shadow(0px, 4px, 10px, rgba(0, 0, 0, 0.1));
+    
+    h1 {
+      color: $primary-color;
+      font-size: 24px;
       margin: 0;
+      text-align: center;
+    }
+  
+    nav ul {
+      @include flex-center(row, space-between);
+      gap: 15px;
       list-style: none;
-      display: flex;
-      li {
-        margin-right: 1.4rem;
+      padding: 0;
+    }
+  
+    a.white {
+      color: $text-color;
+      text-decoration: none;
+      @include link-hover-animation($text-color, $primary-color);
+    }
+  
+    .user-button {
+      a.white {
+        background-color: $primary-color;
+        color: #fff;
+        padding: 10px 20px;
+        @include border-radius(5px);
+        @include transition(background-color);
+        
+        &:hover {
+          background-color: $button-hover-bg;
+        }
       }
     }
+  
+    .arta-wrapper {
+      @include flex-center(row, space-between, center);
+    }
   }
-}
-
-.arta-content {
-  display: flex;
-  flex-direction: row;
-
-  .arta-sidebar {
-    background-color: $primary-color;
-    padding: 1rem 2rem;
+  
+  .arta-content {
+    display: flex;
+    padding: 20px;
+    background-color: $background-color;
+  
+    main {
+      flex-grow: 1;
+      padding: 20px;
+      background-color: #fff;
+      @include border-radius(10px);
+      @include box-shadow(0, 4px, 10px, rgba(0, 0, 0, 0.05));
+    }
   }
-
+  
+  .artafooter {
+    background-color: $footer-bg-color;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+  
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: #fff;
+    }
+  }
 }
