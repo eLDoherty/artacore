@@ -1,8 +1,8 @@
 // src/app/admin/layout.tsx
+import AdminSidebar from './components/sidebar';
 import Link from 'next/link';
 import '@/app/admin/layout.scss';
 import '@/app/globals.scss';
-import AdminSidebar from './components/sidebar';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     return (

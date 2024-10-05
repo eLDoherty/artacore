@@ -5,12 +5,12 @@
     background-color: $primary-color;
     color: $white;
     padding: 1.5rem;
-    @include border-radius(10px);
     @include box-shadow(0, 4px, 10px, rgba(0, 0, 0, 0.1));
 
     h2 {
         font-size: 20px;
         margin-bottom: 15px;
+        color: $white;
     }
 
     .menu-hasChild {

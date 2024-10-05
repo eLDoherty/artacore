@@ -1,0 +1,27 @@
+@import '../../../../public/scss/index.scss';
+
+.posts-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: $header-bg-color; // Assuming you have a variable for the header background
+        color: $text-color; // Assuming you have a variable for text color
+    }
+
+    tr:hover {
+        background-color: #f1f1f1; // Add a hover effect
+    }
+
+    button {
+        margin-right: 5px; // Spacing between buttons
+        padding: 5px 10px; // Basic padding for buttons
+        cursor: pointer;
+    }
+}

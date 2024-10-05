@@ -1,7 +1,7 @@
 @import '../../../public/scss/index.scss';
 
 .artacore {
-  .artaheader {
+  .arta-header {
     background-color: $header-bg-color;
     padding: 20px 0;
     @include box-shadow(0px, 4px, 10px, rgba(0, 0, 0, 0.1));
@@ -47,7 +47,6 @@
   
   .arta-content {
     display: flex;
-    padding: 20px;
     background-color: $background-color;
   
     main {

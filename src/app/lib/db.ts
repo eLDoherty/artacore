@@ -26,6 +26,11 @@ export async function update(table: string, data: Record<string, any>, condition
     return result;
 }
 
+export async function query(sql: string, values?: any[]) {
+    const [rows] = await pool.execute(sql, values);
+    return rows;
+}
+
 export async function remove(table: string, condition: string) {
     const query = `DELETE FROM ${table} WHERE ${condition}`;
     const [result] = await pool.execute(query);

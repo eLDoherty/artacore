@@ -46,35 +46,37 @@ export default function AddPost() {
     };
 
     return (
-        <div className="arta-pages arta-space">
-            <h2>Add New Article</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="title">Title:</label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="content">Content:</label>
-                    {isClient && (
-                        <CKEditor
-                            editor={ClassicEditor}
-                            data={content}
-                            onChange={(event, editor) => {
-                                const data = editor.getData();
-                                setContent(data);
-                            }}
+        <div className="arta-inner-content arta-space">
+            <div className="arta-container">
+                <h2>Add New Article</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="title">Title:</label>
+                        <input
+                            type="text"
+                            id="title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
                         />
-                    )}
-                </div>
-                <button type="submit">Save Article</button>
-            </form>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="content">Content:</label>
+                        {isClient && (
+                            <CKEditor
+                                editor={ClassicEditor}
+                                data={content}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    setContent(data);
+                                }}
+                            />
+                        )}
+                    </div>
+                    <button type="submit">Save Article</button>
+                </form>
+            </div>
         </div>
     );
 }

@@ -18,7 +18,7 @@ const AdminSidebar = () => {
                     <li><Link href="/admin">Dashboard</Link></li>
                     <li>
                         <div className='menu-hasChild'>
-                            <Link href="/admin">Post</Link>
+                            <Link href="/admin/posts">Post</Link>
                             <button onClick={togglePostsMenu} className="toggle-button">+</button>
                         </div>
                         {isPostsOpen && (
