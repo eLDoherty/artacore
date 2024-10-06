@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
+import './page.scss';
 import '../../globals.scss';
+import { useRouter } from 'next/navigation';
 
 interface Post {
     id: number;
@@ -11,6 +13,8 @@ interface Post {
 export default function PostsPage() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
+    const [categoriesMap, setCategoriesMap] = useState<{ [key: number]: string }>({});
+    const router = useRouter();
 
     const fetchPosts = async () => {
         try {
@@ -22,11 +26,9 @@ export default function PostsPage() {
             console.log('Fetched data:', data.articles);
             if (Array.isArray(data.articles)) {
                 setPosts(data.articles);
+                fetchCategoriesForPosts(data.articles);
             } else {
                 console.error('Fetched data is not an array:', data);
-                if (data.articles) {
-                    setPosts(data.articles);
-                }
             }
         } catch (error) {
             console.error('Error fetching posts:', error);
@@ -35,12 +37,40 @@ export default function PostsPage() {
         }
     };
 
+    const fetchCategoriesForPosts = async (posts: Post[]) => {
+        const newCategoriesMap: { [key: number]: string } = {};
+        for (const post of posts) {
+            const categoriesString = await fetchCategories(post.id);
+            newCategoriesMap[post.id] = categoriesString;
+        }
+        setCategoriesMap(newCategoriesMap);
+    };
+
+    const fetchCategories = async (id: number): Promise<string> => {
+        try {
+            const response = await fetch('/admin/posts/api/categories?articleID=' + id);
+            if (!response.ok) {
+                throw new Error('Failed to fetch categories');
+            }
+            const data = await response.json();
+            console.log('Fetched categories:', data.categories);
+            if (Array.isArray(data.categories)) {
+                return data.categories.map((category: { name: string }) => category.name).join(', ');
+            } else if (data.categories) {
+                return data.categories.name;
+            }
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        }
+        return "-";
+    };
+
     useEffect(() => {
         fetchPosts();
     }, []);
 
     const handleEdit = (id: number) => {
-        console.log(`Edit post with ID: ${id}`);
+        router.push('/admin/posts/add?id=' + id);
     };
 
     const handleDelete = (id: number) => {
@@ -53,11 +83,11 @@ export default function PostsPage() {
 
     return (
         <div className="arta-pages arta-space">
-            <h2>Posts</h2>
+            <h2 className='arta-title'>Post List</h2>
             {loading ? (
                 <p>Loading posts...</p>
             ) : (
-                <table className="posts-table">
+                <table className="arta-list">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -71,7 +101,7 @@ export default function PostsPage() {
                             <tr key={post.id}>
                                 <td>{post.id}</td>
                                 <td>{post.title}</td>
-                                <td>{post.category}</td>
+                                <td>{categoriesMap[post.id] || '-'}</td>
                                 <td>
                                     <button onClick={() => handleView(post.id)}>View</button>
                                     <button onClick={() => handleEdit(post.id)}>Edit</button>

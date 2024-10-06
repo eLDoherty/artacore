@@ -1,27 +1,62 @@
 @import '../../../../public/scss/index.scss';
 
-.posts-table {
+.arta-list {
     width: 100%;
     border-collapse: collapse;
+    font-family: $font-stack;
+    background-color: $background-color;
 
     th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
+        border: 1px solid $border-color;
+        padding: $space-xs;
         text-align: left;
     }
 
     th {
-        background-color: $header-bg-color; // Assuming you have a variable for the header background
-        color: $text-color; // Assuming you have a variable for text color
+        background-color: $header-bg-color;
+        color: $text-color;
+        font-weight: bold;
     }
 
-    tr:hover {
-        background-color: #f1f1f1; // Add a hover effect
+    tr {
+        &:hover {
+            background-color: $hover-bg-color;
+        }
     }
 
-    button {
-        margin-right: 5px; // Spacing between buttons
-        padding: 5px 10px; // Basic padding for buttons
-        cursor: pointer;
+    td {
+        button {
+            padding: $space-xs $space-sm;
+            border-radius: $border-radius;
+            cursor: pointer;
+            border: none;
+            color: $white;
+            margin-right: $space-xs;
+            transition: background-color 0.3s ease;
+
+            &:first-child {
+                background-color: $primary-color;
+
+                &:hover {
+                    background-color: darken($primary-color, 10%);
+                }
+            }
+
+            &:nth-child(2) {
+                background-color: $accent-color;
+
+                &:hover {
+                    background-color: darken($accent-color, 10%);
+                }
+            }
+
+            &:last-child {
+                background-color: $error-color;
+
+                &:hover {
+                    background-color: darken($error-color, 10%);
+                }
+            }
+        }
     }
 }

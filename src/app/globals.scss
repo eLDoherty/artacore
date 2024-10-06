@@ -22,10 +22,18 @@ a.white {
   @include link-hover-animation($text-color: $white, $underline-color: $white, $duration: 0.4s, $ease: ease-out);
 }
 
+.arta-pages {
+  width: 100%;
+}
+
 .arta-space {
   padding: 1.5rem;
 }
 
 .arta-mainpage {
   padding: 1.5rem;
+}
+
+.arta-title {
+  margin: 1.5rem 0;
 }

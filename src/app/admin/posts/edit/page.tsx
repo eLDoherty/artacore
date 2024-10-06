@@ -3,13 +3,13 @@
 import { useState, useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import './add.scss';
 import '../../../globals.scss';
 
-async function insertData(title: string, content: string) {
-    const response = await fetch('/admin/posts/api/post', {
-        method: 'POST',
+async function updateData(id: number, title: string, content: string) {
+    const response = await fetch(`/admin/posts/api/post/${id}`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -17,38 +17,77 @@ async function insertData(title: string, content: string) {
     });
 
     if (!response.ok) {
-        throw new Error('Failed to save article');
+        throw new Error('Failed to update article');
     }
 
     return response.json();
 }
 
-export default function AddPost() {
+export default function EditPost() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [isClient, setIsClient] = useState(false);
+    const [loading, setLoading] = useState(true);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const articleId = searchParams?.get('id');
+
+    console.log("articleID:" + articleId);
+
+    const fetchPost = async (id: string) => {
+        try {
+            const response = await fetch(`/admin/posts/api/post?id=${id}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch post');
+            }
+
+            
+            const data = await response.json();
+
+            console.log(data);
+            if (data.article) {
+                setTitle(data.article.title);
+                setContent(data.article.content);
+            } else {
+                console.error('Failed to fetch article data:', data);
+            }
+        } catch (error) {
+            console.error('Error fetching post:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         setIsClient(true);
-    }, []);
+        if (articleId) {
+            fetchPost(articleId);
+        } else {
+            setLoading(false);
+        }
+    }, [articleId]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         try {
-            const response = await insertData(title, content);
-            console.log('Article saved:', response);
-            router.push('/admin/posts');
+            if (articleId) {
+                const response = await updateData(Number(articleId), title, content);
+                router.push('/admin/posts');
+            }
         } catch (error) {
-            console.error('Error saving article:', error);
+            alert('Error updating article: ' + error);
         }
     };
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <div className="arta-inner-content arta-space">
             <div className="arta-container">
-                <h2>Add New Article</h2>
+                <h2>Edit Article</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="title">Title:</label>
@@ -74,7 +113,7 @@ export default function AddPost() {
                             />
                         )}
                     </div>
-                    <button type="submit">Save Article</button>
+                    <button type="submit">Update Article</button>
                 </form>
             </div>
         </div>
